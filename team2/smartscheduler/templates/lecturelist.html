@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    
+{% extends 'base.html' %}
+{% block content %}
+<body>
+    <h1>강의 리스트</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>개설영역</th>
+                <th>학년</th>
+                <th>학수번호</th>
+                <th>교과목명</th>
+                <th>과목유형</th>
+                <th>담당교수</th>
+                <th>학점</th>
+                <th>시간</th>
+                <th>강의시간</th>
+                <th>강의실</th>
+                <th>지원인원수</th>
+                <th>제한인원수</th>
+                <th>비고</th>
+                <th>별점</th>
+                <th>강의평</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for lecture in lectures %}
+            <tr>
+                <td>{{lecture.area}}</td>
+                <td>{{lecture.year}}</td>
+                <td>{{lecture.lecture_number}}</td>
+                <td>{{lecture.lecture_name}}</td>
+                <td>{{lecture.type}}</td>
+                <td>{{lecture.professor}}</td>
+                <td>{{lecture.credit}}</td>
+                <td>{{lecture.time}}</td>
+                <td>{{lecture.lecture_time}}</td>
+                <td>{{lecture.lecture_room}}</td>
+                <td>{{lecture.apply_count}}</td>
+                <td>{{lecture.limit_count}}</td>
+                <td>{{lecture.note}}</td>
+                <td>{{lecture.star_point}}</td>
+                <td>{{lecture.lecture_review}}</td>
+            </tr>   
+        {% endfor %}
+</tbody>
+</table>
+</body>
+{% endblock %}
+</html>
