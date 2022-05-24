@@ -30,3 +30,6 @@ def lecturelist(request):
 
 def filter(request):
     return render(request, 'filter.html')
+
+def hel():
+    return
