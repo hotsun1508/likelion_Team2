@@ -21,4 +21,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('lecturelist/', views.lecturelist, name='lecturelist'),
     path('filter/', views.filter, name='filter'),
+    path('api/', views.ListPost.as_view()),
+    path('<int:pk>/', views.DetailPost.as_view()),
 ]
