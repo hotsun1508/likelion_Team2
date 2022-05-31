@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from .models import Lecture
 from .models import Student
+# from .serializers import StudentSerializer
+from .serializers import PostSerializer
+from rest_framework import generics
 
 def index(request):
     return render(request, 'index.html')
@@ -30,3 +33,14 @@ def lecturelist(request):
 
 def filter(request):
     return render(request, 'filter.html')
+
+class ListPost(generics.ListCreateAPIView):
+    queryset = Student.objects.all()
+    # serialize_class = StudentSerializer
+    serializer_class = PostSerializer
+
+class DetailPost(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Student.objects.all()
+    # serializer_class = StudentSerializer
+    serializer_class = PostSerializer
+
