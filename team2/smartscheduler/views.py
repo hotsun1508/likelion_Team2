@@ -43,3 +43,4 @@ class DetailPost(generics.RetrieveUpdateDestroyAPIView):
     queryset = Student.objects.all()
     # serializer_class = StudentSerializer
     serializer_class = PostSerializer
+
