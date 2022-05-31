@@ -11,6 +11,7 @@
     <table>
         <thead>
             <tr>
+                <th>상세보기</th>
                 <th>개설영역</th>
                 <th>학년</th>
                 <th>학수번호</th>
@@ -31,6 +32,7 @@
         <tbody>
         {% for lecture in lectures %}
             <tr>
+                <td><a href="https://wis.hufs.ac.kr/src08/jsp/lecture/syllabus.jsp?mode=print&ledg_year=2022&ledg_sessn=1&org_sect=A&lssn_cd={{ lecture.lecture_number}}">보기</a></td>
                 <td>{{lecture.area}}</td>
                 <td>{{lecture.year}}</td>
                 <td>{{lecture.lecture_number}}</td>
