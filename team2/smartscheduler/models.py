@@ -36,11 +36,12 @@ class Lecture(models.Model):
     class Meta:
         db_table = 'lecture'
 
-# 편의상 다 str타입으로 진행함
+
 class Schedule(models.Model):
     id = models.BigAutoField(primary_key=True, null=False) # int64, AutoField와 동일하지만 AutoField보다 int범위가 크다
     student_number = models.CharField(default='', max_length=64, verbose_name='학번')
-    lecture_number_list = models.CharField(default='', blank=True, null=True, max_length=2048, verbose_name='학수번호') # 'U4812, U1452, Y9012'로 저장 후 Query에서 split(',') 진행
+    lecture_number_list = models.CharField(default='', blank=True, null=True, max_length=2048, verbose_name='학수번호') 
+    # 'U4812,U1452,Y9012'로 저장 후 Query에서 split(',') 진행
     # 추출할 정보: lecture_name, professor, lecture_time, lecture_room
     # 교과목명, 담당교수, 강의시간(ex. 화12), 강의실(ex. (0517))
 
