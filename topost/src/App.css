@@ -1,0 +1,93 @@
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+  font-weight: bolder;
+  font-style:normal;
+}
+
+.App{
+  margin-right: auto;
+  margin-left: auto;
+  font-size: 8px;
+  font-family: 'GmarketSansMedium';
+}
+
+h3,h2{
+  padding-top: 40px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+h2{
+  color: #4caf50;
+}
+
+.nav .me-auto{
+  width: 100%;
+  font-size: 15px;
+  padding: 0 10px;
+}
+
+.form{
+  width: 100%;
+  border: #333 solid;
+  padding: 20px;
+}
+
+.mb-3{
+  padding-top: 40px;
+  padding-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  font-weight: bolder;
+ 
+}
+
+
+.select-text{
+  font-size: large;
+  font-weight: 500;
+}
+
+table {
+  width: 100%;
+}
+
+th,td {
+  font-size:medium;
+  width: 100px;
+  height: 50px;
+  text-align: center;
+}
+
+
+.date td{
+  border: 2px solid #bdbdbd;
+  height: 40%;
+}
+
+.lecture-table td{
+  border: 2px solid #bdbdbd;
+  height: 40%;
+}
+
+.timetable button{
+  width: 101%;
+  height: 105%;
+  padding: 0;
+  background-color: white;
+  color: white; 
+  border: 1px solid #bdbdbd;
+}
+
+.search-form{
+  width:50%;
+  font-size:20px;
+  /* padding-top: 0; */
+  margin-right: 10px;
+}
+
+.btn{
+  margin-left: 30px;
+  margin-right: 30px;
+}

@@ -1,7 +1,7 @@
-"""team2 URL Configuration
+"""djangoreactapi URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.1/topics/http/urls/
+    https://docs.djangoproject.com/en/4.0/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -15,16 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from smartscheduler import views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name='index'),
-    path('lecturelist/', views.lecturelist, name='lecturelist'),
-    path('filter/', views.filter, name='filter'),
-    path('schedule/', views.schedule, name='schedule'),
-    path('check/', views.check_duplicate, name='check_duplicate'),
-    path('delete/', views.delete, name="delete"),
-    path('api/', views.ListPost.as_view()),
-    path('test/', views.test, name='test'),
-    path('<int:pk>/', views.DetailPost.as_view()),
 ]
