@@ -1,6 +1,7 @@
 import React, {useRef, useState,useEffect,render } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Nav, Form, Button,Container, Modal, FormCheck} from 'react-bootstrap';
+import axios from 'axios';
 
 export default function 조건검색결과페이지(){
     const [강의정보,강의정보설정] = useState([]);
@@ -12,9 +13,15 @@ export default function 조건검색결과페이지(){
     console.log(강의명검색);
 
     useEffect(()=>{
-        fetch('http://localhost:3001/lecture_infor')
+        console.log('전체강의페이지.js/useEffect()들어옴')
+        // fetch('http://localhost:3001/lecture_infor')
+        // fetch('http://127.0.0.1:8000/lecturelist/')
+        axios.get('http://127.0.0.1:8000/lecturelist/')
         .then(res => {
-            return res.json();})
+            console.log('res: ', res);
+            console.log('res.data: ', res.data);
+            // return res.json();})
+            return res.data['lecture_infor'];})
         .then(data =>{
             강의정보설정(data);
         });
@@ -36,7 +43,6 @@ export default function 조건검색결과페이지(){
     }
 
     function onSubmit(e){
-        <Example />
         e.preventDefault();
         fetch(`http://localhost:3001/select_lecture`, {
             method: "POST",
@@ -152,34 +158,3 @@ export default function 조건검색결과페이지(){
       </>
     )
 }
-
-function Example() {
-    const [show, setShow] = useState(false);
-  
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-  
-    return (
-      <>
-        <Button variant="primary" onClick={handleShow}>
-          Launch demo modal
-        </Button>
-  
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-            <Button variant="primary" onClick={handleClose}>
-              Save Changes
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </>
-    );
-  }
-  render(<Example />);

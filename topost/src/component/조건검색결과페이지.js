@@ -1,15 +1,17 @@
 import React, {useRef, useState,useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Nav, Form, Button,Container,Row ,Col, FormCheck} from 'react-bootstrap';
+import axios from 'axios';
 
-export default function 조건검색결과페이지(){
+export default function 조건검색결과페이지(props){
     const [강의정보,강의정보설정] = useState([]);
     const [선택강의,선택강의설정] = useState([]);
-
+    console.log('조건검색결과페이지 들어옴');
+    console.log('props.lectures.lecture_number: ', props.lectures.lecture_number);
     useEffect(()=>{
-        fetch('http://localhost:3001/lecture_infor')
+        fetch('http://localhost:8000/select-lecturelist')
         .then(res => {
-            return res.json();})
+            return res.data['lecture_infor'];})
         .then(data =>{
             강의정보설정(data);
         });
@@ -32,16 +34,20 @@ export default function 조건검색결과페이지(){
 
     function onSubmit(e){
         e.preventDefault();
-        fetch(`http://localhost:3001/select_lecture`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                선택강의목록 : 선택강의
-            }),
-          });
-        }
+        // fetch('http://localhost:3001/select_lecture', {
+        //     method: "POST",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //         선택강의목록 : 선택강의
+        //     }),
+        //   });
+        axios.post("http://127.0.0.1:8000/lecturelist/", {
+            start_point: "3.67",
+            lecture_name: ""
+        })
+    }
         
     return(
         <>

@@ -62,7 +62,7 @@ export default function 내시간표페이지(){
 
     function onSubmit(e){
         e.preventDefault();
-        fetch(`http://localhost:3001/search`, {
+        fetch('http://localhost:3001/search', {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

@@ -1,10 +1,12 @@
 import React, {useRef, useState,useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Nav, Form, Button,Container,Row ,Col} from 'react-bootstrap';
+import { Navbar, Nav, Form, Button,Container,Row ,Col, Fade} from 'react-bootstrap';
+import axios from 'axios';
+import 조건검색결과페이지 from './조건검색결과페이지'
 
 export default function 조건검색페이지(){
-    const areaRef = useRef("-"); //개설영역
-    const starRef = useRef("-"); //별점
+    const areaRef = useRef(""); //개설영역
+    const starRef = useRef(""); //별점
 
     const [gettime,setgettime] = useState([]); //선택된 강의 담아둔 
     const times =["1","2","3","4","5","6","7","8"];
@@ -45,22 +47,41 @@ export default function 조건검색페이지(){
 
     function onSubmit(e){
         e.preventDefault();
-        fetch(`http://localhost:3001/search`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                times : gettime.join(''),
-                개설영역 : areaRef.current.value,
-                별점: starRef.current.value,
-            }),
-          });
-        }
+        console.log('조건검색페이지/onSubmit()들어옴')
+        // fetch(`http://localhost:3001/search`, {
+        //     method: "POST",
+        //     headers: {
+        //       "Content-Type": "application/json",
+        //     },
+        //     body: JSON.stringify({
+        //         times : gettime.join(''),
+        //         개설영역 : areaRef.current.value,
+        //         별점: starRef.current.value,
+        //     }),
+        //   });
+        console.log('start_point: ', starRef.current.value)
+        console.log('lecture_area: ', areaRef.current.value)
+        axios.post("http://127.0.0.1:8000/lecturelist/", {
+            star_point: starRef.current.value,
+            lecture_area: areaRef.current.value,
+            times: gettime.join(''),
+        })
+        .then(function(res){
+            console.log('res.data: ', res.data)
+            console.log('res.data[lecture_infor]: ', res.data['lecture_infor'])
+            console.log('type of res.data[lec_info]: ', typeof(res.data['lecture_infor']))
+            // axios.post()
+            // react-router()
+            return <조건검색결과페이지 lectures={res.data['lecture_infor']} />;  // 잘 된다 -> 페이지 넘길때 데이터 같이 넘기면 된다.
+            // return 'hello';
+        }).catch(function(err){
+            alert('조건검색 실패');
+            return false;
+        })
+    }
 
     return(
         <>
-        
         <Navbar bg="success" variant="dark" className="nav">
                 <Container>
                 <Navbar.Brand href="#home">SmartScheduler Logo</Navbar.Brand>
