@@ -1,24 +1,24 @@
-import React, {useRef, useState,useEffect } from "react";
+import React, {useState,useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Nav, Form, Button,Container} from 'react-bootstrap';
-
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 export default function 내시간표페이지(){
     const [time, settime] = useState([]); //서버로 받아온 시간id
     const [subject, setsubject] = useState([]); //서버로 받아온 과목명
     const [color,setcolor] = useState([]); //랜덤색깔
-
     const [gettime,setgettime] = useState([]); //선택된 강의 담아둔 
 
     const times =["1","2","3","4","5","6","7","8"];
 
+    //시간표를 제자리에 띄우기위한 useEffect
     useEffect(() => {
         settime([]);
         setgettime([]);
-
-        fetch('http://localhost:3001/subject')
+        axios.get('http://localhost:3001/subject')
         .then(res => {
-            return res.json();})
+            return res.data;})
         .then(data => {
             let copy = [];
             let sub_copy = [];
@@ -53,41 +53,15 @@ export default function 내시간표페이지(){
             setsubject(sub_copy);
             setcolor(color_copy);
         })
+        
         },[]);  
 
         function getRandomColor() {
             return `rgb( ${new Array(3).fill().map(v => Math.random() * 127 + 128).join(", ")} )`;
         }
 
-
-    function onSubmit(e){
-        e.preventDefault();
-        fetch('http://localhost:3001/search', {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                all_time1 : gettime,
-                all_time2 : JSON.stringify(gettime)
-            }),
-          });
-        }
-
     return(
         <>
-        
-        <Navbar bg="success" variant="dark" className="nav">
-                <Container>
-                <Navbar.Brand href="#home">SmartScheduler Logo</Navbar.Brand>
-                <Nav className="me-auto">
-                    <Nav.Link href="#home">전체 강의</Nav.Link>
-                    <Nav.Link href="#features">조건 검색</Nav.Link>
-                    <Nav.Link href="#pricing">내 시간표</Nav.Link>
-                    <Nav.Link href="#login" style={{margin:"0 0 0 auto"}}>Login</Nav.Link>
-                </Nav>
-                </Container>
-        </Navbar>
 
         <div style={{width:"70%",margin:"auto"}}>
             <h3 style={{marginLeft:"auto",marginRight:"auto"}}>2022-1 시간표</h3>
@@ -124,16 +98,15 @@ export default function 내시간표페이지(){
                 document.getElementById(item).style.color = "black";
             })
         }
-        {/* <button onClick={onSubmit}>search!</button> */}
         </div>
+
         <Form>
-        
-            
-        <div style={{paddingTop:"50px",textAlign:"center"}}>
-            <Button variant="success" type="submit" className="btn" size="lg">추가하기</Button>
-            <Button variant="success" type="submit" className="btn" size="lg">시간표 저장</Button>
-        </div>
-        
+            <div style={{padding:"50px",textAlign:"center"}}>
+                <Link to = "/to-search">
+                    <Button variant="success" type="submit" className="btn" size="lg">추가하기</Button>
+                </Link>
+                <Button variant="success" type="submit" className="btn" size="lg">시간표 저장</Button>
+            </div>
         </Form>
         </>  
     )
