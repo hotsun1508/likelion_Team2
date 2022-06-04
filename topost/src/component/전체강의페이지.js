@@ -1,27 +1,21 @@
 import React, {useRef, useState,useEffect,render } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Nav, Form, Button,Container, Modal, FormCheck} from 'react-bootstrap';
+import { Navbar, Nav, Form, Button,Container,FormCheck} from 'react-bootstrap';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-export default function 조건검색결과페이지(){
+export default function 전체강의페이지(){
     const [강의정보,강의정보설정] = useState([]);
     const [선택강의,선택강의설정] = useState([]);
     const [강의명검색, 강의명검색설정] = useState(null);
 
-    const 검색어 = useRef("-"); 
-
-    console.log(강의명검색);
+    const 검색어 = useRef(""); 
 
     useEffect(()=>{
-        console.log('전체강의페이지.js/useEffect()들어옴')
-        // fetch('http://localhost:3001/lecture_infor')
-        // fetch('http://127.0.0.1:8000/lecturelist/')
-        axios.get('http://127.0.0.1:8000/lecturelist/')
+        axios.get('http://localhost:3001/lecture_infor')
         .then(res => {
-            console.log('res: ', res);
-            console.log('res.data: ', res.data);
-            // return res.json();})
-            return res.data['lecture_infor'];})
+            console.log('res: ', res); console.log('res.data: ', res.data);
+            return res.data;})
         .then(data =>{
             강의정보설정(data);
         });
@@ -44,38 +38,21 @@ export default function 조건검색결과페이지(){
 
     function onSubmit(e){
         e.preventDefault();
-        fetch(`http://localhost:3001/select_lecture`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                선택강의목록 : 선택강의
-            }),
-          });
-        }
-
+        // console.log("선택강의",선택강의);
+        axios.post("http://localhost:3001/select_lecture", {
+            선택강의목록 : 선택강의
+        });
+    }
 
     return(
         <>
-        <Navbar bg="success" variant="dark" className="nav">
-                <Container >
-                <Navbar.Brand href="#home">SmartScheduler Logo</Navbar.Brand>
-                <Nav className="me-auto">
-                    <Nav.Link href="#home">전체 강의</Nav.Link>
-                    <Nav.Link href="#features">조건 검색</Nav.Link>
-                    <Nav.Link href="#pricing">내 시간표</Nav.Link>
-                    <Nav.Link href="#login" style={{margin:"0 0 0 auto"}}>Login</Nav.Link>
-                </Nav>
-                </Container>
-        </Navbar>
-        
         <div style={{textAlign:"center",paddingTop:"30px",paddingBottom:"30px"}}>
             <form>
             <input type="text" className="search-form" placeholder=" 과목명 검색하기" ref={검색어}/>
+            <Link to = "/all-lecture">
             <button class="btn btn-outline-success" 
             style={{paddingBottom:"3px",paddingTop:"7px", margin:"0px"}} type="submit" onClick={()=>{강의명검색설정(검색어.current.value)}}>
-                Search</button>
+                Search</button></Link>
             </form>
         </div>
         <div style={{width:"90%",margin:"auto"}}>
@@ -118,7 +95,7 @@ export default function 조건검색결과페이지(){
                                                 <td>{a["limit_count"]}</td>
                                                 <td>{a["note"]}</td>
                                                 <td>{a["star_point"]}</td>
-                                                <td><FormCheck id = {a["lecture_name"]} onClick={(e)=>click(e)}/></td>
+                                                <td><FormCheck id = {a["lecture_number"]} onClick={(e)=>click(e)}/></td>
                                             </tr>)
                                     }
                                 }
@@ -138,7 +115,7 @@ export default function 조건검색결과페이지(){
                                             <td>{a["limit_count"]}</td>
                                             <td>{a["note"]}</td>
                                             <td>{a["star_point"]}</td>
-                                            <td><FormCheck id = {a["lecture_name"]} onClick={(e)=>click(e)}/></td>
+                                            <td><FormCheck id = {a["lecture_number"]} onClick={(e)=>click(e)}/></td>
                                         </tr>)
                                 }
                             }
@@ -150,11 +127,13 @@ export default function 조건검색결과페이지(){
             </table>
         </div>
         <div style={{paddingTop:"50px",textAlign:"center"}}>
-            <Form onSubmit={onSubmit}>
-                <Button variant="success" type="submit" className="btn" size="lg">추가하기</Button>
-            </Form>
+            <Button variant="success" size="lg" onClick={onSubmit}>
+                <Link to = "/to-search" style={{textDecoration: 'none',color:'white'}}>
+                    추가하기</Link>
+            </Button>
         </div>
         
       </>
     )
 }
+
