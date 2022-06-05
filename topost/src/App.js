@@ -23,10 +23,10 @@ function App() {
             <Route exact path="/introduce"><Introduce /></Route>
             <Route exact path="/login"><Login /></Route>
             <Route exact path="/signup"><Signup /></Route>
-            <Route exact path="/all-lecture"><전체강의페이지 /></Route>
+            <Route exact path="/lecturelist"><전체강의페이지 /></Route>
             <Route exact path="/to-search"><조건검색페이지 /></Route>
             <Route exact path="/search-result"><조건검색결과페이지 /></Route>
-            <Route exact path="/mytimetable"><내시간표페이지 /></Route>
+            <Route exact path="/schedule"><내시간표페이지 /></Route>
           </Switch>
         </div>
       </BrowserRouter>

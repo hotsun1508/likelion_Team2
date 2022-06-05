@@ -22,11 +22,26 @@ def split_time(lecture_time): # lecture_time: "월1월2월3"
         digit = lecture_time[i+1]
         split_lecture_time.append(han+digit)
     return split_lecture_time
-
+'''
+[06/Jun/2022 03:21:59] "POST /lecturelist/ HTTP/1.1" 200 1023
+request:  <WSGIRequest: POST '/lecturelist/'>
+request.method:  POST
+lecturelist/POS
+'''
 @csrf_exempt
 def lecturelist(request):
-    if request.method == 'POST': # 원하는 조건으로 필터링된 과목정보 리스트 return
+    print('33request: ', request)
+    print('34req.method: ', request.method)
+    print('35req.headers: ', request.headers)
+    # print('36req.headers[Content-Type]: ', request.headers['Content-Type'])
+    # method = request.headers['Content-Type']
+    # data = json.load(request)
+    # print('data after json.load: ', data)
+    # if request.method == 'POST': # 원하는 조건으로 필터링된 과목정보 리스트 return
+    if request.method == 'POST':
         # times 도 받짜 [6/4]
+        print('lecturelist/POST')
+        print('req.body: ', request.body)
         data = json.load(request) # 조건 선택 후 보낸 req
         student_number = "201700295"
         lecture_time = data['times'] # "월1월2월3월4"
@@ -86,6 +101,7 @@ def lecturelist(request):
                 dic['code'] = "201"
                 dic['msg'] = "not duplicate, success filtering"
                 dic['lecture_infor'] = lectures # 겹치는 강의 return
+                print('104')
                 return JsonResponse(dic)
             else: # duplicate_flag == True 즉, 입력한 시간표가 현재 수강예정인 수업과 겹치는 경우
                 lecture = Lecture.objects.filter(lecture_number=duplicate_lecture_number).values()
@@ -101,6 +117,7 @@ def lecturelist(request):
             else:    
                 lectures = Lecture.objects.filter(star_point__gte=star_point, lecture_area=lecture_area).values()
     else: # GET일 때, -> 전체과목 조회
+        print('lecturelist()/GET')
         lectures = Lecture.objects.all().values()
     print('lectures: ', lectures)
     print('type of lectures:', type(lectures))
@@ -122,7 +139,6 @@ def lecturelist(request):
 def filter(request):
     return render(request, 'filter.html')
 
-# '~/schedule' GET
 def schedule(request): # 현재 수강중인
     student_number = "201700295" # user.session.get사용해야함
     schedule = Schedule.objects.filter(student_number=student_number) # <QuerySet [<Schedule: Schedule object (1)>]>
@@ -135,7 +151,8 @@ def schedule(request): # 현재 수강중인
         # lectures.append(Lecture.objects.filter(lecture_number=lecture_number))
         # [<QuerySet [<Lecture: U76007101>]>, <QuerySet [<Lecture: U71826301>]>, <QuerySet [<Lecture: U72207401>]>]
         # 보낼 정보 lecture_name, professor, lecture_time, lecture_room
-    dic = []
+    dic = {}
+    temp = []
     for lecture in lectures:
         dic_temp = {}
         dic_temp['lecture_number'] = lecture.lecture_number
@@ -143,7 +160,8 @@ def schedule(request): # 현재 수강중인
         dic_temp['professor'] = lecture.professor
         dic_temp['lecture_time'] = lecture.lecture_time
         dic_temp['lecture_room'] = lecture.lecture_room
-        dic.append(dic_temp)
+        temp.append(dic_temp)
+    dic['lecture_infor'] = temp
     # return render(request, 'schedule.html', {
     #     'lectures': lectures
     # })
@@ -224,15 +242,28 @@ def delete(request): # DB에 save() 반영할려면 밑에 주석 지우자!!
         print('req: ', request)
         student_number = "201700295"
         data = json.loads(request.body)
-        delete_lecture_number = data.get('delete_lecture_number', None)
+        # delete_lecture_name = data.get('delete_lecture_name', None)
+        delete_lecture_name = data['delete_lecture_name'][0]
+        # delete_lecture_time = data.get('delete_lecture_time', None) 
+        # delete_lecture_time = data['delete_lecture_time']
+        # '수1' or '수2' 의 형태로 온다. # 과목명이 같은 순 있지만 시간대까지 같진 않을 것이기 때문에
+        # 강의 명과 강의시간을 가지고 삭제할 과목의 학수번호를 찾아서 schedule 테이블에서 삭제할 것임
+        print('delete_lecture_name: ', delete_lecture_name)
+        # print('dele_lec_time: ', delete_lecture_time)
+        lectures = Lecture.objects.filter(lecture_name=delete_lecture_name)
+        print('lectures: ', lectures)
+        for delete_lecture_number in lectures:
+            print('delete_lecture_number: ', delete_lecture_number)
         # delete_lecture_number = request.POST.get('lecture_number', None)
-        print('d_lec_number: ', delete_lecture_number, 'type of delete_lec_num: ', type(delete_lecture_number))
+        # print('d_lec_name: ', delete_lecture_name, 'type of delete_lec_num: ', type(delete_lecture_number))
         # delete_lecture_number = 'U71826301'
 
         schedule = Schedule.objects.get(student_number=student_number)
         lecture_str = schedule.lecture_number_list # U76007101,U71826301,U72207401
         lecture_number_list = lecture_str.split(',') # ['U76007101', 'U71826301', 'U72207401']
-        lecture_number_list.remove(delete_lecture_number)
+        print('Before/lecture_number_list: ', lecture_number_list)
+        lecture_number_list.remove(str(delete_lecture_number))
+        print('After/lecture_number_list: ', lecture_number_list)
         lecture_str_final = '' # DB에 Schedule테이블에 저장할 정보
 
         for i in range(len(lecture_number_list)):
@@ -241,11 +272,10 @@ def delete(request): # DB에 save() 반영할려면 밑에 주석 지우자!!
                 lecture_str_final += lecture_str_temp
             else:
                 lecture_str_final += lecture_number_list[i]
-
+        print('lecture_str_final: ', lecture_str_final)
         '''DB에 변경사항을 반영하려면 아래의 두줄의 주석을 지우세요'''
-        # schedule.lecture_number_list = lecture_str_final
-        # schedule.save()
-
+        schedule.lecture_number_list = lecture_str_final
+        schedule.save()
         # return 할 정보 만들기 schedule()과 동일함.
         lectures = []
         for lecture_number in lecture_number_list:
@@ -254,7 +284,9 @@ def delete(request): # DB에 save() 반영할려면 밑에 주석 지우자!!
             # lectures.append(Lecture.objects.filter(lecture_number=lecture_number))
             # [<QuerySet [<Lecture: U76007101>]>, <QuerySet [<Lecture: U71826301>]>, <QuerySet [<Lecture: U72207401>]>]
             # 보낼 정보 lecture_name, professor, lecture_time, lecture_room
-        dic = []
+        print('lectures: ', lectures)
+        dic = {}
+        temp = []
         for lecture in lectures:
             dic_temp = {}
             dic_temp['lecture_number'] = lecture.lecture_number
@@ -262,7 +294,8 @@ def delete(request): # DB에 save() 반영할려면 밑에 주석 지우자!!
             dic_temp['professor'] = lecture.professor
             dic_temp['lecture_time'] = lecture.lecture_time
             dic_temp['lecture_room'] = lecture.lecture_room
-            dic.append(dic_temp)
+            temp.append(dic_temp)
+        dic['lecture_infor'] = temp
         # '''_str형태로 주지말고 '전체강의리스트'페이지로 넘어갈것을 고려해서 삭제된 후 사용자의 남아있는 과목정보들을 return하자'''
         return JsonResponse(dic)
     else:
@@ -274,7 +307,8 @@ def add(request): # DB에 save() 반영할려면 밑에 주석 지우자!!
     if request.method == 'POST':
         print('req: ', request)
         data = json.loads(request.body)
-        add_lecture_number = data.get('add_lecture_number', None) # 'U76100201,U51512201'
+        add_lecture_number_list = data.get('add_lecture_number', None) # ['U76100201,U51512201']
+        add_lecture_number = add_lecture_number_list[0]
         print('add_lec_num: ', add_lecture_number)
         schedule = Schedule.objects.get(student_number="201700295")
         lecture_str = schedule.lecture_number_list # U76007101,U71826301,U72207401
@@ -288,8 +322,8 @@ def add(request): # DB에 save() 반영할려면 밑에 주석 지우자!!
         lecture_str_final = lecture_str
 
         '''DB에 변경사항 반영하고 싶으면 아래 2줄의 주석을 지워야함'''
-        # schedule.lecture_number_list = lecture_str_final
-        # schedule.save()
+        schedule.lecture_number_list = lecture_str_final
+        schedule.save()
 
         lecture_str_final_list = lecture_str_final.split(',')
         for lecture_number in lecture_str_final_list:

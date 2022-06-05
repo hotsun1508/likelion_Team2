@@ -12,10 +12,12 @@ export default function 전체강의페이지(){
     const 검색어 = useRef(""); 
 
     useEffect(()=>{
-        axios.get('http://localhost:3001/lecture_infor')
+        // axios.get('http://localhost:3001/lecture_infor')
+        axios.get('http://127.0.0.1:8000/lecturelist/')
         .then(res => {
             console.log('res: ', res); console.log('res.data: ', res.data);
-            return res.data;})
+            return res.data['lecture_infor'];
+        })
         .then(data =>{
             강의정보설정(data);
         });
