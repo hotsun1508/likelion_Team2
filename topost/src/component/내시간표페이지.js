@@ -121,7 +121,7 @@ export default function 내시간표페이지(){
                     <td>Fri</td>                
                 </tr>
             <tbody>
-                {
+                { 
                     times.map(function(a,i){
                         return(
                         <tr>
