@@ -21,6 +21,11 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('lecturelist/', views.lecturelist, name='lecturelist'),
     path('filter/', views.filter, name='filter'),
+    path('schedule/', views.schedule, name='schedule'),
+    path('check/', views.check_duplicate, name='check_duplicate'),
+    path('delete/', views.delete, name="delete"),
+    path('add/', views.add, name="add"),
     path('api/', views.ListPost.as_view()),
+    path('test/', views.test, name='test'),
     path('<int:pk>/', views.DetailPost.as_view()),
 ]

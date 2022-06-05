@@ -1,0 +1,140 @@
+{
+  "subject": [
+    {
+      "name": "범죄와수사",
+      "time": "월34"
+    },
+    {
+      "name": "교양영어",
+      "time": "수56"
+    },
+    {
+      "name": "성사랑결혼",
+      "time": "수78"
+    },
+    {
+      "name": "미네르바",
+      "time": "월12금3"
+    },
+    {
+      "name": "미적분",
+      "time": "수1금12"
+    },
+    {
+      "name": "골프",
+      "time": "월78"
+    },
+    {
+      "name": "야구",
+      "time": "목12"
+    }
+  ],
+  "search": [
+    {
+      "times": "목6목7목8목5",
+      "star_point": "4",
+      "lecture_area": "전공",
+      "id": 1
+    }
+  ],
+  "lecture_infor": [
+    {
+      "area": "역사와철학",
+      "year": "전학년",
+      "lecture_number": "U76007101",
+      "lecture_name": "21세기현대문화지형이해",
+      "professor": "김영걸",
+      "credit": "2",
+      "time": "2",
+      "lecture_time": "월78",
+      "lecture_room": "()",
+      "apply_count": "60",
+      "limit_count": "60",
+      "note": "비대면(학기 전체)",
+      "star_point": "3.67"
+    },
+    {
+      "area": "문화와예술",
+      "year": "전학년",
+      "lecture_number": "U76100201",
+      "lecture_name": "공감을통한음악의체험",
+      "professor": "성용원",
+      "credit": "2",
+      "time": "2",
+      "lecture_time": "화78",
+      "lecture_room": "(1206)",
+      "apply_count": "87",
+      "limit_count": "60",
+      "note": "비대면(학기 전체)",
+      "star_point": "5"
+    },
+    {
+      "area": "소프트웨어기초",
+      "year": "1",
+      "lecture_number": "U72207401",
+      "lecture_name": "컴퓨터프로그래밍",
+      "professor": "김재빈",
+      "credit": "3",
+      "time": "3",
+      "lecture_time": "화12목3",
+      "lecture_room": "()",
+      "apply_count": "58",
+      "limit_count": "50",
+      "note": "비대면(학기 전체)",
+      "star_point": "3.76"
+    },
+    {
+      "area": "생활과스포츠",
+      "year": "전학년",
+      "lecture_number": "U51512201",
+      "lecture_name": "체육(야영생활과리더쉽)",
+      "professor": "이상호(체육)",
+      "credit": "1",
+      "time": "2",
+      "lecture_time": "화34",
+      "lecture_room": "(2214)",
+      "apply_count": "31",
+      "limit_count": "30",
+      "note": "대면",
+      "star_point": "4.38"
+    }
+  ],
+  "select_lecture": [
+    {
+      "선택강의목록": [
+        "U76007101",
+        "U76100201"
+      ],
+      "id": 1
+    },
+    {
+      "선택강의목록": [
+        "U76007101",
+        "U76100201"
+      ],
+      "id": 2
+    }
+  ],
+  "delete_lecture": [
+    {
+      "del_list": [
+        "범죄와수사",
+        "미네르바"
+      ],
+      "id": 1
+    },
+    {
+      "del_list": [
+        "교양영어",
+        "성사랑결혼"
+      ],
+      "id": 2
+    },
+    {
+      "del_list": [
+        "교양영어"
+      ],
+      "id": 3
+    }
+  ]
+}

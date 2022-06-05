@@ -1,0 +1,219 @@
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+  font-weight: bolder;
+  font-style:normal;
+}
+
+.App{
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+  /* font-size: 8px; */
+  font-family: 'GmarketSansMedium';
+}
+
+h3,h2{
+  padding-top: 40px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+h2{
+  color: #4caf50;
+}
+
+.nav .me-auto{
+  width: 100%;
+  font-size: 15px;
+  padding: 0 10px;
+}
+
+.form{
+  width: 100%;
+  border: #333 solid;
+  padding: 20px;
+}
+
+.select-text{
+  font-size: large;
+  font-weight: 500;
+}
+
+table {
+  width: 100%;
+}
+
+th,td {
+  font-size:medium;
+  width: 100px;
+  height: 50px;
+  text-align: center;
+}
+
+
+.date td{
+  border: 2px solid #bdbdbd;
+  height: 40%;
+}
+
+.lecture-table td{
+  border: 2px solid #bdbdbd;
+  height: 40%;
+}
+
+.timetable button{
+  width: 101%;
+  height: 105%;
+  padding: 0;
+  background-color: white;
+  color: white; 
+  border: 1px solid #bdbdbd;
+}
+
+.search-form{
+  width:50%;
+  font-size:20px;
+  /* padding-top: 0; */
+  margin-right: 10px;
+}
+
+.btn_in_내시간표{
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.add_del{
+  display: inline-flex;
+  flex-wrap:wrap;
+  justify-content : space-around;
+}
+
+.del_btn{
+  text-align: rigsht;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.line {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  margin-right: 15%;
+  margin-left: 15%;
+  padding: 20px;
+  border: 1px solid black;
+}
+
+.btn_land {
+  margin: 20px;
+}
+
+.scheduler {
+  margin: 5%;
+  border: solid 1px black;
+}
+
+.scheduler > header {
+  padding: 15px;
+  margin-top: 5px;
+}
+
+.scheduler > div > h3 {
+  color: rgb(124, 165, 124);
+}
+
+.scheduler > header > h2 {
+  color: green;
+}
+
+.service_intro {
+  text-align: left;
+  margin: 3% 10px 10px 10px;
+}
+
+.service_intro > p {
+  background-color: rgb(212, 244, 212);
+  padding: 20px;
+  margin: 0 20px;
+  text-align: center;
+}
+
+.main_function {
+  text-align: left;
+  margin: 3% 10px 10px 10px;
+}
+
+.main_function > div {
+  background-color: rgb(212, 244, 212);
+  padding: 20px;
+  margin: 0 20px;
+}
+
+.function_text {
+  line-height: 1cm;
+}
+
+.indent {
+  text-indent: 2em;
+}
+
+.indent2 {
+  text-indent: 4em;
+}
+
+.members {
+  text-align: left;
+  margin: 3% 10px 10px 10px;
+}
+
+.circle_box {
+  display: inline-flex;
+  flex-wrap:wrap;
+  justify-content : space-around;
+}
+
+.circle {
+  margin: 0 10px;
+  margin-bottom: 20px;
+  width : 130px;
+  height : 130px;
+  line-height: 130px;
+  border-radius: 50%;
+  background-color: rgb(196, 210, 204);
+  text-align: center;
+  font-size: 1.2em;
+}

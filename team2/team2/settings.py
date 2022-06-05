@@ -1,6 +1,7 @@
 import os, json
 from django.core.exceptions import ImproperlyConfigured
 from pathlib import Path
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,9 +24,9 @@ def get_secret(setting):
 SECRET_KEY = get_secret("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 
 
 # Application definition
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'team2.urls'
@@ -131,9 +133,12 @@ REST_FRAMEWORK = {
     ]
 }
 
-#이하 추가
+#이하 추가  
 CORS_ORIGIN_WHITELIST = [
     'https://localhost:3000',
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
