@@ -35,6 +35,12 @@
       "star_point": "4",
       "lecture_area": "전공",
       "id": 1
+    },
+    {
+      "times": "화6화7화8화5",
+      "star_point": "4",
+      "lecture_area": "전공",
+      "id": 2
     }
   ],
   "lecture_infor": [
@@ -113,6 +119,13 @@
         "U76100201"
       ],
       "id": 2
+    },
+    {
+      "선택강의목록": [
+        "U76007101",
+        "U76100201"
+      ],
+      "id": 3
     }
   ],
   "delete_lecture": [
