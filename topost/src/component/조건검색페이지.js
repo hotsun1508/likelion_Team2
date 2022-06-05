@@ -1,10 +1,13 @@
 import React, {useRef, useState,useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Nav, Form, Button,Container,Row ,Col} from 'react-bootstrap';
+import {Form, Button,Row ,Col} from 'react-bootstrap';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
+import {useHistory} from "react-router";
 
 export default function 조건검색페이지(){
+    const history = useHistory(); //선택된걸 다음페이지에 보내기위한 history
+
     const areaRef = useRef(""); //개설영역
     const starRef = useRef(""); //별점
 
@@ -13,6 +16,8 @@ export default function 조건검색페이지(){
     const [color,setcolor] = useState([]); //랜덤색깔
 
     const [gettime,setgettime] = useState([]); //선택된 강의 담아둔 
+
+    
 
     const times =["1","2","3","4","5","6","7","8"];
 
@@ -115,12 +120,10 @@ export default function 조건검색페이지(){
             lecture_area: areaRef.current.value,
         })
         .then(function(res){
-            console.log('res.data: ', res.data)
-            return res.data['lecture_infor']
+            console.log('res.data: ', res.data);    
+            history.push({pathname:"/search-result", state:{props:res.data}});
+            // 값 넘기기 성공!
             // 잘 된다 -> 페이지 넘길때 데이터 같이 넘기면 된다.
-        }).catch(function(err){
-            alert('조건검색 실패');
-            return false;
         })
     }
 
@@ -165,7 +168,7 @@ export default function 조건검색페이지(){
         </div>
         
             <div className="select-page">
-                <Row className="mb-3">
+                <Row className="mb-3" style={{marginTop:"50px"}}>
                     <Form.Group as={Col}/>
                         <Form.Group as={Col}>
                         <Form.Label className="select-text">개설영역</Form.Label>
@@ -179,7 +182,7 @@ export default function 조건검색페이지(){
                         <Form.Group as={Col}>
                         <Form.Label className="select-text">별점</Form.Label>
                         <Form.Control placeholder="사용자 직접입력" ref={starRef} />
-                        <p style={{padding:"10px"}}>입력한 별점보다 같거나 큰 결과가 검색됩니다.</p>
+                        <p style={{padding:"10px",fontSize:"5px"}}>입력한 별점보다 같거나 큰 결과가 검색됩니다.</p>
                         </Form.Group>
                     <Form.Group as={Col}/>
                 </Row>
@@ -187,7 +190,9 @@ export default function 조건검색페이지(){
 
                     {/* link넘어가면서 post하는 방법 */}
                     <Button variant="success"size="lg" onClick={onSubmit}>
-                        <Link to = "/search-result" style={{textDecoration: 'none',color:'white'}}>검색하기</Link>
+                        {/* <Link to ="/search-result" style={{textDecoration: 'none',color:'white'}}> */}
+                            검색하기
+                        {/* </Link> */}
                     </Button>
                     
                 </div>

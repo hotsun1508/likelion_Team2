@@ -6,6 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import { Link } from 'react-router-dom';
+import logo from '../img/hufs_logo.png';
 
 function Login() {
     
@@ -79,6 +80,7 @@ function Login() {
 
     return(
         <div className='line'>
+            <img className="logoImage" src={logo}></img>
             <h2>로그인</h2>
             <Container className="pannel" style={{width:"50%"}}>
                 <Form>
@@ -101,15 +103,17 @@ function Login() {
                     </Form.Group>
                     <br />
                     <div className="d-grid gap-1">
-                        <Button className="mb-3"
-                            size="lg" variant="success" type="submit" onClick={onClickLogin}>
-                            로그인
-                        </Button>
+                        
+                            <Button className="mb-3"
+                                size="lg" variant="success" type="submit" onClick={onClickLogin}>
+                                <Link to="/" style={{textDecoration: 'none',color:'white'}}>로그인</Link>
+                            </Button>
+                        
                     </div>
-                    <div className="d-grid gap-2">
+                    <div className="d-grid gap-2" style={{textAlign: 'right'}}>
                         <Link to="/signup">
                             <Button className="mb-3 w-25 p-2"
-                                size="sm" variant="outline-success" type="button">
+                                size="lg" variant="outline-success" type="button">
                                 회원가입
                             </Button>
                         </Link>
