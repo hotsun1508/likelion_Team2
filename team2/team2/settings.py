@@ -133,7 +133,7 @@ REST_FRAMEWORK = {
     ]
 }
 
-#이하 추가  
+#이하 추가   
 CORS_ORIGIN_WHITELIST = [
     'https://localhost:3000',
 ]
