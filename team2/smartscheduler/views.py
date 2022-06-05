@@ -322,6 +322,7 @@ def test(request):
         lectures = Lecture.objects.all().values()
         print('lectures: ', lectures)
         print('type of lectures:', type(lectures))
+        print('test')
         lis = []
         for i in range(len(lectures)):
             lis.append(lectures[i])

@@ -1,1 +1,1 @@
-web: gunicorn hufs-smartscheduler.wsgi --log-file -
+web: gunicorn team2smartscheduler.wsgi --log-file -
