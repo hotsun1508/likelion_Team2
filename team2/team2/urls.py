@@ -28,4 +28,5 @@ urlpatterns = [
     path('api/', views.ListPost.as_view()),
     path('test/', views.test, name='test'),
     path('<int:pk>/', views.DetailPost.as_view()),
+    # path('search/', views.search, name="search"),
 ]

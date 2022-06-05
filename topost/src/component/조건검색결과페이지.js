@@ -4,23 +4,29 @@ import { Button, FormCheck} from 'react-bootstrap';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import {useLocation} from "react-router";
+import {useHistory} from "react-router";
 
+    
 export default function 조건검색결과페이지(){
     const location = useLocation();
+    const history = useHistory();
     const [강의정보,강의정보설정] = useState([]);
     const [선택강의,선택강의설정] = useState([]);
      
     useEffect(()=>{
         console.log("넘어온값!! loc.state.props: ",location.state.props);
         //location.state.props 여기에 이제 선별된 과목들의 리스트가 담기면 될것같슴니다
-        
-        axios.get('http://localhost:3001/lecture_infor')
-        .then(res => {
-            return res.data;})
-        .then(data =>{
-            강의정보설정(data);
-            console.log("이렇게 바꿔야함",data);
-        });
+
+        // // axios.get('http://localhost:3001/lecture_infor')
+        // axios.get('http://localhost:8000/')
+        // .then(res => {
+            // return res.data;})
+        // .then(data =>{
+        //     강의정보설정(data);
+        //     console.log("이렇게 바꿔야함",data);
+        // });
+        강의정보설정(location.state.props)
+        // return location.state.props['lecture_infor']
     },[]);
 
     function click(e){  
@@ -41,8 +47,8 @@ export default function 조건검색결과페이지(){
     function onSubmit(e){
         e.preventDefault();
         console.log("선택강의",선택강의);
-        axios.post("http://localhost:3001/select_lecture", {
-            선택강의목록 : 선택강의
+        axios.post("http://localhost:8000/add/", {
+            add_lecture_number : 선택강의
         })
     }
         
@@ -98,7 +104,7 @@ export default function 조건검색결과페이지(){
         </div>
         <div style={{paddingTop:"50px",textAlign:"center"}}>
             <Button variant="success" size="lg" onClick={onSubmit}>
-                <Link to = "/mytimetable" style={{textDecoration: 'none',color:'white'}}>
+                <Link to = "/schedule" style={{textDecoration: 'none',color:'white'}}>
                     추가하기</Link>
             </Button>
         </div>

@@ -18,17 +18,23 @@ export default function 내시간표페이지(){
 
     //시간표를 제자리에 띄우기위한 useEffect
     useEffect(() => {
+        console.log('enter/내시간표페이지/useEffect');
         settime([]);
-        axios.get('http://localhost:3001/subject')
+        setsubject([]);
+        axios.get('http://127.0.0.1:8000/schedule/')
         .then(res => {
-            return res.data;})
+            console.log('enter/내시간표페이지');
+            console.log('res.data: ', res.data)
+            return res.data['lecture_infor'];})
         .then(data => {
             let copy = [];
             let sub_copy = [];
             let color_copy = [];
             data.map(function(a,i){
-                let time_data = data[i]['time'];
-                let sub_data =  data[i]['name'];
+                console.log('data[i]: ', data[i])
+                console.log('data[i].lecture_name: ', data[i]['lecture_name'])
+                let time_data = data[i]['lecture_time'];
+                let sub_data =  data[i]['lecture_name'];
                 const what_color = getRandomColor();
                 if(time_data.length == 3){
                     copy.push(time_data[0]+time_data[1]);
@@ -48,6 +54,7 @@ export default function 내시간표페이지(){
                         copy.push(day+time_data[i]);
                         sub_copy.push(sub_data);
                         color_copy.push(what_color);
+                        console.log('sub_copy: ', sub_copy);
  
                     }
                 }
@@ -55,6 +62,7 @@ export default function 내시간표페이지(){
             settime(copy);   
             setsubject(sub_copy);
             setcolor(color_copy);
+            console.log('!!subject: ', subject)
         })
         
         },[]);  
@@ -99,8 +107,8 @@ export default function 내시간표페이지(){
     },[getdel])
 
     function deleting(){
-        axios.post('http://localhost:3001/delete_lecture',{
-            del_list : getdel
+        axios.post('http://localhost:8000/delete/',{
+            delete_lecture_name : getdel
         })
     }
 
@@ -156,7 +164,9 @@ export default function 내시간표페이지(){
                 </div>
                 <div>
                 {/* <Button variant="success" type="submit" className="btn_in_내시간표" size="lg">시간표 저장</Button> */}
-                <Button variant="danger" type="submit" className="btn_in_내시간표" size="lg" onClick={deleting}>과목 삭제하기</Button>
+                <Link to = "/schedule">
+                    <Button variant="danger" type="submit" className="btn_in_내시간표" size="lg" onClick={deleting}>과목 삭제하기</Button>
+                </Link>
                 <p style={{padding:"10px",fontSize:"5px"}}>삭제할 과목을 선택 후 클릭해주세요!</p>
                 </div>
             </div>

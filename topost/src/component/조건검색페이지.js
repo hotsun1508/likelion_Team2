@@ -25,16 +25,17 @@ export default function 조건검색페이지(){
     useEffect(() => {
         settime([]);
         setgettime([]);
-        axios.get('http://localhost:3001/subject')
+        // axios.get('http://localhost:3001/subject')
+        axios.get('http://localhost:8000/schedule')
         .then(res => {
-            return res.data;})
+            return res.data['lecture_infor'];})
         .then(data => {
             let copy = [];
             let sub_copy = [];
             let color_copy = [];
             data.map(function(a,i){
-                let time_data = data[i]['time'];
-                let sub_data =  data[i]['name'];
+                let time_data = data[i]['lecture_time'];
+                let sub_data =  data[i]['lecture_name'];
                 const what_color = getRandomColor();
                 if(time_data.length == 3){
                     copy.push(time_data[0]+time_data[1]);
@@ -114,24 +115,45 @@ export default function 조건검색페이지(){
 
     function onSubmit(e){
         e.preventDefault();
-        axios.post("http://localhost:3001/search", {
-            times: gettime.join(''),
-            star_point: starRef.current.value,
-            lecture_area: areaRef.current.value,
+        console.log('조건부여버튼 클릭!!')
+        // axios.post("http://localhost:3001/search"
+        // axios.post("http://127.0.0.1:8000/lecturelist", {
+        //     times: gettime.join(''),
+        //     star_point: starRef.current.value,
+        //     lecture_area: areaRef.current.value,
+        // })
+        console.log(gettime.join(''))
+        console.log(starRef.current.value)
+        console.log(areaRef.current.value)
+        fetch("http://127.0.0.1:8000/lecturelist/",{
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                times: gettime.join(''),
+                star_point: starRef.current.value,
+                lecture_area: areaRef.current.value
+            })
         })
-        .then(function(res){
-            console.log('res.data: ', res.data);    
-            history.push({pathname:"/search-result", state:{props:res.data}});
-            // 값 넘기기 성공!
-            // 잘 된다 -> 페이지 넘길때 데이터 같이 넘기면 된다.
+        .then(response => response.json())
+        .then(data => {
+            console.log('data: ', data);
+            console.log('data[lecture_inofr]: ', data['lecture_infor']);
+            history.push({pathname:"/search-result", state:{props:data['lecture_infor']}});
         })
+        // .then(response => {
+        //     console.log('response.json(): ', response.json());
+        //     console.log('response.data:', response.data);
+        //     // history.push({pathname:"/search-result", state:{props:res.data['lecture_infor']}});
+        // })
     }
 
 
     return(
         <>
         <div style={{width:"70%",margin:"auto"}}>
-            <h3 style={{marginLeft:"auto",marginRight:"auto"}}>2022-1 시간표</h3>
+            <h3 style={{marginLeft:"auto",marginRight:"auto"}}>조건검색</h3>
         <table className="timetable">
                 <tr className="date">
                     <td style={{border:"0px"}}></td>
@@ -176,6 +198,7 @@ export default function 조건검색페이지(){
                             <option></option>
                             <option>전공</option>
                             <option>교양</option>
+                            <option>문화와예술</option>
                         </Form.Select>
                         </Form.Group>
 
