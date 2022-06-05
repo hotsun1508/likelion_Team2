@@ -48,7 +48,7 @@ export default function 전체강의페이지(){
         <>
         <div style={{textAlign:"center",paddingTop:"30px",paddingBottom:"30px"}}>
             <form>
-            <input type="text" className="search-form" placeholder=" 과목명 검색하기" ref={검색어}/>
+            <input type="text" className="search-form" placeholder=" 강의명 검색하기" ref={검색어}/>
             <Link to = "/all-lecture">
             <button class="btn btn-outline-success" 
             style={{paddingBottom:"3px",paddingTop:"7px", margin:"0px"}} type="submit" onClick={()=>{강의명검색설정(검색어.current.value)}}>

@@ -1,0 +1,1 @@
+web: gunicorn hufs-smartscheduler.wsgi --log-file -

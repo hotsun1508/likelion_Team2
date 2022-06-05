@@ -9,7 +9,7 @@
   text-align: center;
   margin-right: auto;
   margin-left: auto;
-  font-size: 8px;
+  /* font-size: 8px; */
   font-family: 'GmarketSansMedium';
 }
 
@@ -34,16 +34,6 @@ h2{
   border: #333 solid;
   padding: 20px;
 }
-
-.mb-3{
-  padding-top: 40px;
-  padding-bottom: 10px;
-  margin-left: auto;
-  margin-right: auto;
-  font-weight: bolder;
- 
-}
-
 
 .select-text{
   font-size: large;
@@ -88,14 +78,25 @@ th,td {
   margin-right: 10px;
 }
 
-.btn{
+.btn_in_내시간표{
   margin-left: 50px;
   margin-right: 50px;
+}
+
+.add_del{
+  display: inline-flex;
+  flex-wrap:wrap;
+  justify-content : space-around;
+}
+
+.del_btn{
+  text-align: rigsht;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -130,6 +131,7 @@ th,td {
 
 .line {
   margin-top: 100px;
+  margin-bottom: 100px;
   margin-right: 15%;
   margin-left: 15%;
   padding: 20px;
@@ -138,4 +140,80 @@ th,td {
 
 .btn_land {
   margin: 20px;
+}
+
+.scheduler {
+  margin: 5%;
+  border: solid 1px black;
+}
+
+.scheduler > header {
+  padding: 15px;
+  margin-top: 5px;
+}
+
+.scheduler > div > h3 {
+  color: rgb(124, 165, 124);
+}
+
+.scheduler > header > h2 {
+  color: green;
+}
+
+.service_intro {
+  text-align: left;
+  margin: 3% 10px 10px 10px;
+}
+
+.service_intro > p {
+  background-color: rgb(212, 244, 212);
+  padding: 20px;
+  margin: 0 20px;
+  text-align: center;
+}
+
+.main_function {
+  text-align: left;
+  margin: 3% 10px 10px 10px;
+}
+
+.main_function > div {
+  background-color: rgb(212, 244, 212);
+  padding: 20px;
+  margin: 0 20px;
+}
+
+.function_text {
+  line-height: 1cm;
+}
+
+.indent {
+  text-indent: 2em;
+}
+
+.indent2 {
+  text-indent: 4em;
+}
+
+.members {
+  text-align: left;
+  margin: 3% 10px 10px 10px;
+}
+
+.circle_box {
+  display: inline-flex;
+  flex-wrap:wrap;
+  justify-content : space-around;
+}
+
+.circle {
+  margin: 0 10px;
+  margin-bottom: 20px;
+  width : 130px;
+  height : 130px;
+  line-height: 130px;
+  border-radius: 50%;
+  background-color: rgb(196, 210, 204);
+  text-align: center;
+  font-size: 1.2em;
 }

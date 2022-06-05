@@ -1,19 +1,25 @@
-import React, {useRef, useState,useEffect } from "react";
+import React, {useState,useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Nav, Form, Button,Container, FormCheck} from 'react-bootstrap';
+import { Button, FormCheck} from 'react-bootstrap';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import {useLocation} from "react-router";
 
 export default function 조건검색결과페이지(){
+    const location = useLocation();
     const [강의정보,강의정보설정] = useState([]);
     const [선택강의,선택강의설정] = useState([]);
-
+     
     useEffect(()=>{
+        console.log("넘어온값!! loc.state.props: ",location.state.props);
+        //location.state.props 여기에 이제 선별된 과목들의 리스트가 담기면 될것같슴니다
+        
         axios.get('http://localhost:3001/lecture_infor')
         .then(res => {
             return res.data;})
         .then(data =>{
             강의정보설정(data);
+            console.log("이렇게 바꿔야함",data);
         });
     },[]);
 
