@@ -18,22 +18,22 @@ export default function 내시간표페이지(){
 
     //시간표를 제자리에 띄우기위한 useEffect
     useEffect(() => {
-        console.log('enter/내시간표페이지/useEffect');
+        // console.log('enter/내시간표페이지/useEffect');
         settime([]);
         setsubject([]);
         setgetdel([]);
         axios.get('http://127.0.0.1:8000/schedule/')
         .then(res => {
-            console.log('enter/내시간표페이지');
-            console.log('res.data: ', res.data)
+            // console.log('enter/내시간표페이지');
+            // console.log('res.data: ', res.data)
             return res.data['lecture_infor'];})
         .then(data => {
             let copy = [];
             let sub_copy = [];
             let color_copy = [];
             data.map(function(a,i){
-                console.log('data[i]: ', data[i])
-                console.log('data[i].lecture_name: ', data[i]['lecture_name'])
+                // console.log('data[i]: ', data[i])
+                // console.log('data[i].lecture_name: ', data[i]['lecture_name'])
                 let time_data = data[i]['lecture_time'];
                 let sub_data =  data[i]['lecture_name'];
                 const what_color = getRandomColor();
@@ -63,7 +63,7 @@ export default function 내시간표페이지(){
             settime(copy);   
             setsubject(sub_copy);
             setcolor(color_copy);
-            console.log('!!subject: ', subject)
+            // console.log('!!subject: ', subject);
         })
         
         },[]);  
@@ -76,6 +76,7 @@ export default function 내시간표페이지(){
                     document.getElementById(item).style.color = "black";
                 })
             }
+            console.log("useEffect 실행");
         },[]);
 
     function getRandomColor() {
@@ -114,14 +115,17 @@ export default function 내시간표페이지(){
                 }
             }
         })
-        console.log(getdel);
+        // console.log(getdel);
     },[getdel])
 
     function deleting(){
         axios.post('http://localhost:8000/delete/',{
             delete_lecture_name : getdel
         })
-        .then(window.location.replace("/schedule"))
+        .then(console.log("windowloc 실행1"),
+            window.location.replace("/schedule"),
+            console.log("windowloc 실행2"),)
+        
     }
 
     return(
