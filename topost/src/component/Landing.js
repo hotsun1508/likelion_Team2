@@ -14,7 +14,7 @@ function Landing() {
                 <Link to='/introduce'>
                     <Button variant="success" className="btn_land" size="lg">서비스 소개</Button>
                 </Link>
-                <Link to='/all-lecture'>
+                <Link to='/lecturelist'>
                 <Button variant="success" className="btn_land" size="lg">시간표 채우러 가기</Button>
                 </Link>
             </div>
