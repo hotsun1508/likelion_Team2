@@ -42,8 +42,8 @@ export default function 전체강의페이지(){
     function onSubmit(e){
         e.preventDefault();
         console.log("선택강의",선택강의);
-        axios.post("http://127.0.0.1:8000/filter/", {
-    //         선택강의목록 : 선택강의
+        axios.post("http://127.0.0.1:8000/add/", {
+            add_lecture_number : [선택강의.join(',')]
             
         });
     //     try{
