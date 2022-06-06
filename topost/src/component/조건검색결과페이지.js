@@ -4,12 +4,12 @@ import { Button, FormCheck} from 'react-bootstrap';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import {useLocation} from "react-router";
-import {useHistory} from "react-router";
+// import {useHistory} from "react-router";
 
     
 export default function 조건검색결과페이지(){
     const location = useLocation();
-    const history = useHistory();
+    // const history = useHistory();
     const [강의정보,강의정보설정] = useState([]);
     const [선택강의,선택강의설정] = useState([]);
      
@@ -54,7 +54,7 @@ export default function 조건검색결과페이지(){
         
     return(
         <>
-        <h2>조건 검색 결과</h2>
+        <h3 style={{marginLeft:"auto",marginRight:"auto"}}>조건 검색 결과</h3>
 
         <div style={{width:"90%",margin:"auto"}}>
             
@@ -83,7 +83,8 @@ export default function 조건검색결과페이지(){
                                     <td>{a['area']}</td>
                                     <td>{a['year']}</td>
                                     <td>{a["lecture_number"]}</td>
-                                    <td>{a["lecture_name"]}</td>
+                                    <td><a href={"https://wis.hufs.ac.kr/src08/jsp/lecture/syllabus.jsp?mode=print&ledg_year=2022&ledg_sessn=1&org_sect=A&lssn_cd=" + a["lecture_number"]}>
+                                                    {a["lecture_name"]}</a></td>
                                     <td>{a["professor"]}</td>
                                     <td>{a["credit"]}</td>
                                     <td>{a["time"]}</td>

@@ -26,7 +26,7 @@ export default function 조건검색페이지(){
         settime([]);
         setgettime([]);
         // axios.get('http://localhost:3001/subject')
-        axios.get('http://localhost:8000/schedule')
+        axios.get('http://localhost:8000/schedule/')
         .then(res => {
             return res.data['lecture_infor'];})
         .then(data => {
@@ -63,7 +63,8 @@ export default function 조건검색페이지(){
             setcolor(color_copy);
         })
         },[]);  
-
+         
+        //랜덤색깔 부여 함수
         function getRandomColor() {
             return `rgb( ${new Array(3).fill().map(v => Math.random() * 127 + 128).join(", ")} )`;
         }
@@ -73,6 +74,8 @@ export default function 조건검색페이지(){
         all_id.push(["월"+times[i],"화"+times[i],"수"+times[i],"목"+times[i],"금"+times[i]]);
     }
 
+
+    //빈테이블 클릭시 id값을 얻어오기위함, 토글식으로 동작
     function get_time(e){
         const target_id = e.target.id;
         let copy = [...gettime];
@@ -107,8 +110,6 @@ export default function 조건검색페이지(){
             document.getElementById(item).innerText = subject[i];
             document.getElementById(item).style.color = "black";
         })
-
-        
 
     },[gettime])
 
@@ -153,13 +154,15 @@ export default function 조건검색페이지(){
     return(
         <>
         <div style={{width:"70%",margin:"auto"}}>
-            <h3 style={{marginLeft:"auto",marginRight:"auto"}}>조건검색</h3>
+            <h3 style={{marginLeft:"auto",marginRight:"auto"}}>조건 검색</h3>
+            <p>시간표에서 강의 추천받으실 시간대를 선택해주세요!</p>
+            
         <table className="timetable">
                 <tr className="date">
                     <td style={{border:"0px"}}></td>
                     <td>Mon</td>
                     <td>Tues</td>
-                    <td>Wednes</td>
+                    <td>Wed</td>
                     <td>Thurs</td>
                     <td>Fri</td>                
                 </tr>
@@ -196,16 +199,18 @@ export default function 조건검색페이지(){
                         <Form.Label className="select-text">개설영역</Form.Label>
                         <Form.Select ref={areaRef}>
                             <option></option>
-                            <option>전공</option>
-                            <option>교양</option>
+                            <option>역사와철학</option>
                             <option>문화와예술</option>
+                            <option>소프트웨어기초</option>
+                            <option>생활과 스포츠</option>
                         </Form.Select>
                         </Form.Group>
 
                         <Form.Group as={Col}>
                         <Form.Label className="select-text">별점</Form.Label>
                         <Form.Control placeholder="사용자 직접입력" ref={starRef} />
-                        <p style={{padding:"10px",fontSize:"5px"}}>입력한 별점보다 같거나 큰 결과가 검색됩니다.</p>
+                        <p style={{padding:"10px",paddingBottom:"0px",fontSize:"7px",marginBottom:"5px"}}>입력한 별점보다 같거나 큰 결과가 검색됩니다.</p>
+                        <p style={{fontSize:"5px",color:"#2e7d32"}}>※ 숫자만 입력해주세요! (소수점 둘째자리까지)</p>
                         </Form.Group>
                     <Form.Group as={Col}/>
                 </Row>

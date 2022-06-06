@@ -21,6 +21,7 @@ export default function 내시간표페이지(){
         console.log('enter/내시간표페이지/useEffect');
         settime([]);
         setsubject([]);
+        setgetdel([]);
         axios.get('http://127.0.0.1:8000/schedule/')
         .then(res => {
             console.log('enter/내시간표페이지');
@@ -54,7 +55,7 @@ export default function 내시간표페이지(){
                         copy.push(day+time_data[i]);
                         sub_copy.push(sub_data);
                         color_copy.push(what_color);
-                        console.log('sub_copy: ', sub_copy);
+                        //console.log('sub_copy: ', sub_copy);
  
                     }
                 }
@@ -66,6 +67,16 @@ export default function 내시간표페이지(){
         })
         
         },[]);  
+
+        useEffect(()=>{
+            {
+                time.forEach((item,i)=> {
+                    document.getElementById(item).style.background = color[i];
+                    document.getElementById(item).innerText = subject[i];
+                    document.getElementById(item).style.color = "black";
+                })
+            }
+        },[]);
 
     function getRandomColor() {
         return `rgb( ${new Array(3).fill().map(v => Math.random() * 127 + 128).join(", ")} )`;
@@ -110,13 +121,14 @@ export default function 내시간표페이지(){
         axios.post('http://localhost:8000/delete/',{
             delete_lecture_name : getdel
         })
+        .then(window.location.replace("/schedule"))
     }
 
     return(
         <>
 
         <div style={{width:"70%",margin:"auto"}}>
-            <h3 style={{marginLeft:"auto",marginRight:"auto"}}>2022-1 시간표</h3>
+            <h3 style={{marginLeft:"auto",marginRight:"auto"}}>내 시간표</h3>
             
         <table className="timetable">
             
@@ -124,7 +136,7 @@ export default function 내시간표페이지(){
                     <td style={{border:"0px"}}></td>
                     <td>Mon</td>
                     <td>Tues</td>
-                    <td>Wednes</td>
+                    <td>Wed</td>
                     <td>Thurs</td>
                     <td>Fri</td>                
                 </tr>
